@@ -25,7 +25,7 @@
             "Support\\": "src/"
         },
         "files": [
-            "src\\helpers\\support.php"
+            "src\\Helpers\\support.php"
         ]
     }
 }
