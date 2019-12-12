@@ -6,7 +6,6 @@ return [
         'dev' => '',
     ],
     'config' => [
-        'key' => getEncryptKey(),
         'path' => '',
         'project' => '',
     ]

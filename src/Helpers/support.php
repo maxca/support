@@ -1,7 +1,5 @@
 <?php
 
-namespace Support\Helpers;
-
 use Support\Util\Config;
 
 if (!function_exists('t2pGetConfig')) {
@@ -12,7 +10,7 @@ if (!function_exists('t2pGetConfig')) {
      */
     function t2pGetConfig($key, $default = '')
     {
-        return (new Config())->get($key, $default);
+        return (new Config(getInitConfig()))->get($key, $default);
     }
 }
 
@@ -23,7 +21,7 @@ if (!function_exists('t2pGetAllConfig')) {
      */
     function t2pGetAllConfig($project = '')
     {
-        return (new Config())->getAll($project);
+        return (new Config(getInitConfig()))->getAll($project);
     }
 }
 
@@ -50,6 +48,18 @@ if (!function_exists('getEncryptKey')) {
     }
 }
 
+if (!function_exists('getInitConfig')) {
+    /**
+     * @return \Illuminate\Config\Repository|mixed
+     */
+    function getInitconfig()
+    {
+        $init = config("support.config");
+        $init['key'] = getEncryptKey();
+        return $init;
+    }
+}
+
 if (!function_exists('readConfig')) {
     /**
      * @param  $key
@@ -58,7 +68,7 @@ if (!function_exists('readConfig')) {
      */
     function readConfig($key, $default = '')
     {
-        return \Support\Util\Config(config("support.config"))
+        return (new Config(getInitConfig()))
             ->get($key, $default);
     }
 }
